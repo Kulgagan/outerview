@@ -1,0 +1,62 @@
+Metadata-Version: 2.4
+Name: outerview-mock-interviewer
+Version: 0.1.0
+Summary: A fully local, voice-driven coding mock interviewer.
+Author: Outerview
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+
+# Outerview local mock interviewer
+
+Outerview is a local, terminal-first mock coding interviewer. It uses a local
+`llama-server` instance for conversation and screen understanding; no cloud
+inference, browser automation, database, or interview history is used.
+
+## Setup (Windows PowerShell)
+
+```powershell
+py -3.14 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+# Install the correct CPU or CUDA PyTorch wheel first from pytorch.org.
+python -m pip install -r requirements.txt
+python -m pip install -e .
+Copy-Item config.example.toml config.toml
+```
+
+Install `espeak-ng` and make its executable discoverable on `PATH` before
+using Kokoro. Run a compatible `llama-server` on `127.0.0.1:8080`, then verify
+the machine before an interview:
+
+```powershell
+mock-interviewer --doctor --config config.toml
+mock-interviewer --benchmark --config config.toml --write-recommendation recommended.toml
+```
+
+If a native dependency has no Python 3.14 wheel, create the environment with
+Python 3.12 instead. GPU STT additionally requires a compatible CUDA/cuDNN
+runtime; CPU STT is the safe default.
+
+Download model artifacts before an interview and keep them outside version
+control: the faster-whisper model directory defaults to
+`models/faster-whisper-small.en`, while the GGUF and vision projector paths are
+configured under `[llm]`. Start `llama-server` yourself with those GGUF paths.
+Kokoro is forced into Hugging Face offline mode at runtime, so prime its model
+cache during setup rather than allowing a mid-interview download.
+
+## Run
+
+```powershell
+# Develop the interviewer logic without microphone, speakers, or screen capture.
+mock-interviewer --text-mode --config config.toml
+
+# Capture the configured screen and editor crops to calibration/ and exit.
+mock-interviewer --calibrate --config config.toml
+
+# Run the live pipeline (headphones required for reliable barge-in).
+mock-interviewer --config config.toml --save-report report.md
+```
+
+In text mode, type `start`, `repeat the question`, `end interview`, or `quit`.
+The text-mode path deliberately uses the same Brain, state machine, scoring,
+and report as the live runtime.

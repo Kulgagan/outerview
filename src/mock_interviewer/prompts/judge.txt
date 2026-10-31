@@ -1,0 +1,5 @@
+Grade only from the supplied transcript and code. Return JSON of the form
+{"checklist":{"dimension":{"item":{"yes":true|false,"evidence":"short exact candidate quote"}}}}.
+Every yes answer needs a non-empty exact candidate quote. Never invent evidence;
+use no for unclear claims. Follow the supplied checklist keys exactly.
+

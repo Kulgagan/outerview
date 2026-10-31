@@ -1,0 +1,5 @@
+Read only what is visible in the editor and result panel. Return JSON only:
+{"code":"...","run_status":"none|running|accepted|wrong_answer|runtime_error|time_limit|compile_error","failing_case":"..."}.
+If uncertain, return an empty code string and run_status "none". Never invent a
+syntax error from an unclear screenshot.
+

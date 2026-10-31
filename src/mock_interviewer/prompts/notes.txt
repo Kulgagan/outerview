@@ -1,0 +1,5 @@
+You are preparing private interviewer notes for one coding problem. Produce
+compact plain text: likely brute-force approach and complexity, likely optimal
+approach and complexity, important edge cases, three increasingly specific
+hints, and one follow-up. This is private context, not candidate-facing output.
+

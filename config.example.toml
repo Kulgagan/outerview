@@ -1,0 +1,44 @@
+[session]
+minutes = 35
+bar = "intern"
+
+[audio]
+input_device = "default"
+sample_rate = 16000
+frame_ms = 32
+speech_threshold = 0.5
+speech_start_ms = 250
+pre_roll_ms = 300
+end_silence_ms = 700
+end_silence_coding_ms = 1500
+barge_in_min_ms = 300
+
+[stt]
+# A manually downloaded faster-whisper model directory; no model downloads occur at interview time.
+model = "models/faster-whisper-small.en"
+device = "cpu"
+compute_type = "int8"
+
+[llm]
+base_url = "http://127.0.0.1:8080"
+model = "local-model"
+timeout_seconds = 30
+max_tokens = 90
+temperature = 0.6
+# Optional, used by `--doctor` to confirm the configured GGUF exists.
+model_path = ""
+mmproj_path = ""
+
+[tts]
+backend = "kokoro"
+voice = "af_heart"
+device = "cpu"
+
+[screen]
+monitor = 1
+# Fractions of the selected monitor: left, top, right, bottom.
+editor_region = [0.5, 0.1, 1.0, 0.9]
+max_width = 1280
+settle_seconds = 2.0
+change_threshold = 7.0
+

@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=80.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "outerview-mock-interviewer"
+version = "0.1.0"
+description = "A fully local, voice-driven coding mock interviewer."
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{ name = "Outerview" }]
+dependencies = []
+
+[project.scripts]
+mock-interviewer = "mock_interviewer.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mock_interviewer = ["prompts/*.txt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+

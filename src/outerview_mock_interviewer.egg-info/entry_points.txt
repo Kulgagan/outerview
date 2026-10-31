@@ -1,0 +1,2 @@
+[console_scripts]
+mock-interviewer = mock_interviewer.main:main
